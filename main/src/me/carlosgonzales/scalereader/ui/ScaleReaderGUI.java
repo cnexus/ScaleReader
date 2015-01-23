@@ -1,12 +1,16 @@
 package me.carlosgonzales.scalereader.ui;
 
+import me.carlosgonzales.scalereader.receiver.DataWriter;
 import me.carlosgonzales.scalereader.receiver.Processor;
-import me.carlosgonzales.scalereader.receiver.SerialReceiver;
+import me.carlosgonzales.scalereader.receiver.ScaleComDevice;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.File;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -28,10 +32,24 @@ public class ScaleReaderGUI extends JFrame implements Processor{
 		this.setResizable(false);
 
 		initComponents();
+
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				JFileChooser chooser = new JFileChooser();
+				chooser.setMultiSelectionEnabled(false);
+				chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+				chooser.showSaveDialog(ScaleReaderGUI.this);
+
+				File f = chooser.getSelectedFile();
+				DataWriter writer = new DataWriter(f);
+				writer.writeData(table.getData());
+			}
+		});
 	}
 
 	private void initComponents(){
-		SerialReceiver receiver = SerialReceiver.getInstance(this);
+		ScaleComDevice receiver = ScaleComDevice.getInstance(this);
 		receiver.start();
 
 		table = new WeightTable("0.2", "0.8");
