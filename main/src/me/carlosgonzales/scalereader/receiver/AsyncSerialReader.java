@@ -22,7 +22,7 @@ public class AsyncSerialReader extends Thread{
 			String curr = "";
 			String last = "";
 
-			int block = 800;
+			int block = 600;
 
 			reader = new BufferedReader(new InputStreamReader(in));
 			while((curr = reader.readLine()) != null && !forceStop) {
@@ -37,7 +37,6 @@ public class AsyncSerialReader extends Thread{
 						processor.processData(curr);
 						last = curr;
 					}
-
 				}
 			}
 		}catch ( IOException e ){
