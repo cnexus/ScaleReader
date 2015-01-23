@@ -8,6 +8,8 @@ import java.util.LinkedList;
  * Created by Carlos on 1/23/2015.
  */
 public class DataWriter {
+	public static File DEFAULT = new File("ScaleReads.xlsx");
+
 	private File file;
 	public DataWriter(File file){
 		this.file = file;

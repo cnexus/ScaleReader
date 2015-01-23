@@ -12,9 +12,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Carlos on 1/23/2015.
@@ -45,7 +43,10 @@ public class ScaleReaderGUI extends JFrame implements Processor{
 				if(result == JFileChooser.APPROVE_OPTION) {
 					File f = chooser.getSelectedFile();
 					DataWriter writer = new DataWriter(f);
-					writer.writeData(table.getData());
+
+					ArrayList<LinkedList<String>> data = table.getData();
+					data.add(0, table.getHeaders());
+					writer.writeData(data);
 				}else{
 					System.exit(0);
 				}

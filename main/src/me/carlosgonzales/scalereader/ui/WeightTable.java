@@ -29,6 +29,14 @@ public class WeightTable extends JTable {
 			getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
 	}
 
+	public LinkedList<String> getHeaders(){
+		LinkedList<String> l =  new LinkedList();
+		for(int i = 0; i < l.size(); i++)
+			l.add(model.headers[i]);
+
+		return l;
+	}
+
 	public void add(String weight, String timestamp) {
 		model.add(tracker.getEntryFor(weight, timestamp));
 	}
