@@ -41,7 +41,7 @@ public class ScaleReaderGUI extends JFrame implements Processor{
 
 		GridLayout layout = new GridLayout(1,3);
 		setLayout(layout);
-		add(list);
+		add(new JScrollPane(list));
 	}
 
 	public ScaleReaderGUI(){
