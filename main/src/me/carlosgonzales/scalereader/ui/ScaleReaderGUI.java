@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public class ScaleReaderGUI extends JFrame implements Processor{
 	private static final String NAME = "ScaleReader";
-	private static final Rectangle SIZE = new Rectangle(500, 400);
+	private static final Rectangle SIZE = new Rectangle(800, 600);
 	private DefaultListModel<String> model;
 	private WeightTable list;
 	private Map<Double, String> dataSet = new HashMap<Double, String>();
@@ -34,7 +34,7 @@ public class ScaleReaderGUI extends JFrame implements Processor{
 		receiver.start();
 
 		model = new DefaultListModel<String>();
-		list = new WeightTable();
+		list = new WeightTable("0.2", "0.8");
 		list.setRowSelectionAllowed(false);
 		list.setColumnSelectionAllowed(false);
 		list.setFont(new Font("Tahoma", Font.PLAIN, 20));
