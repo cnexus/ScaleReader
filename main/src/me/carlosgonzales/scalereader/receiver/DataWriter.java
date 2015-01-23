@@ -19,6 +19,7 @@ public class DataWriter {
 		try {
 			writer = new PrintWriter(new BufferedWriter(new FileWriter(file, file.exists())));
 			LinkedList<String> headers = values.get(0);
+			writeLine(writer, headers);
 
 			for(int i = 1; i < values.size(); i++)
 				writeLine(writer, values.get(i));
