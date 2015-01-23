@@ -27,9 +27,10 @@ public class ScaleReaderGUI extends JFrame implements Processor{
 
 	private ScaleReaderGUI(String name){
 		super(name);
-		this.setJMenuBar(new ActionBar(this));
-		this.setSize(SIZE.width, SIZE.height);
-		this.setResizable(false);
+		setJMenuBar(new ActionBar(this));
+		setSize(SIZE.width, SIZE.height);
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		initComponents();
 
