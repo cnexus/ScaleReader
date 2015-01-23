@@ -35,24 +35,27 @@ public class ScaleReaderGUI extends JFrame implements Processor{
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				JFileChooser chooser = new JFileChooser();
-				chooser.setMultiSelectionEnabled(false);
-				chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-				int result = chooser.showSaveDialog(ScaleReaderGUI.this);
-
-				if(result == JFileChooser.APPROVE_OPTION) {
-					File f = chooser.getSelectedFile();
-					DataWriter writer = new DataWriter(f);
-
-					ArrayList<LinkedList<String>> data = table.getData();
-					data.add(0, table.getHeaders());
-					writer.writeData(data);
-				}else{
-					System.exit(0);
-				}
-
+				showSaveOperation(true);
 			}
 		});
+	}
+
+	private void showSaveOperation(boolean isShutdown){
+		JFileChooser chooser = new JFileChooser();
+		chooser.setMultiSelectionEnabled(false);
+		chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		int result = chooser.showSaveDialog(ScaleReaderGUI.this);
+
+		if(result == JFileChooser.APPROVE_OPTION) {
+			File f = chooser.getSelectedFile();
+			DataWriter writer = new DataWriter(f);
+
+			ArrayList<LinkedList<String>> data = table.getData();
+			data.add(0, table.getHeaders());
+			writer.writeData(data);
+		}else if(result == JFileChooser.CANCEL_OPTION && isShutdown){
+			System.exit(0);
+		}
 	}
 
 	private void initComponents(){
