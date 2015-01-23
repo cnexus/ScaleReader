@@ -33,7 +33,9 @@ public class WeightTable extends JTable {
 		model.add(tracker.getEntryFor(weight, timestamp));
 	}
 
-
+	public ArrayList<LinkedList<String>> getData(){
+		return model.data;
+	}
 
 	private class WeightTableModel extends AbstractTableModel{
 		private String[] headers = {"Carton #", "Weight", "Date", "Time", "Status"};
