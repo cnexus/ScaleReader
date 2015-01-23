@@ -5,6 +5,8 @@ import me.carlosgonzales.scalereader.receiver.SerialReceiver;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -16,7 +18,6 @@ import java.util.Map;
 public class ScaleReaderGUI extends JFrame implements Processor{
 	private static final String NAME = "ScaleReader";
 	private static final Rectangle SIZE = new Rectangle(800, 600);
-	private DefaultListModel<String> model;
 	private WeightTable table;
 	private Map<Double, String> dataSet = new HashMap<Double, String>();
 
@@ -33,7 +34,6 @@ public class ScaleReaderGUI extends JFrame implements Processor{
 		SerialReceiver receiver = SerialReceiver.getInstance(this);
 		receiver.start();
 
-		model = new DefaultListModel<String>();
 		table = new WeightTable("0.2", "0.8");
 		table.setRowSelectionAllowed(false);
 		table.setColumnSelectionAllowed(false);
@@ -41,7 +41,14 @@ public class ScaleReaderGUI extends JFrame implements Processor{
 
 		GridLayout layout = new GridLayout(1,3);
 		setLayout(layout);
-		add(new JScrollPane(table));
+		JScrollPane container = new JScrollPane(table);
+		container.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener() {
+			public void adjustmentValueChanged(AdjustmentEvent e) {
+				e.getAdjustable().setValue(e.getAdjustable().getMaximum());
+			}
+		});
+
+		add(container);
 	}
 
 	public ScaleReaderGUI(){
@@ -80,13 +87,9 @@ public class ScaleReaderGUI extends JFrame implements Processor{
 		if(dataSet.containsKey(Double.valueOf(data)))
 			return;
 
-		model.addElement(data);
-		table.scrollRectToVisible(new Rectangle());
-
 		String timestamp = (new Timestamp(Calendar.getInstance().getTime().getTime())).toString();
 
 		table.add(data, timestamp);
-
 		dataSet.put(Double.valueOf(data), timestamp);
 	}
 }
