@@ -40,7 +40,9 @@ public class WeightTracker {
 		if(inRange(Double.valueOf(weight)))
 			cartonNum++;
 
-		entry.add(String.valueOf(cartonNum));
+		String carton = inRange(Double.valueOf(weight)) ? String.valueOf(++cartonNum) : " -X-";
+
+		entry.add(carton);
 		entry.add(weight);
 		for(String s: timeParts)
 			entry.add(s);
