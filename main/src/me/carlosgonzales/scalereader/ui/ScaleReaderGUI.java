@@ -40,11 +40,16 @@ public class ScaleReaderGUI extends JFrame implements Processor{
 				JFileChooser chooser = new JFileChooser();
 				chooser.setMultiSelectionEnabled(false);
 				chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-				chooser.showSaveDialog(ScaleReaderGUI.this);
+				int result = chooser.showSaveDialog(ScaleReaderGUI.this);
 
-				File f = chooser.getSelectedFile();
-				DataWriter writer = new DataWriter(f);
-				writer.writeData(table.getData());
+				if(result == JFileChooser.APPROVE_OPTION) {
+					File f = chooser.getSelectedFile();
+					DataWriter writer = new DataWriter(f);
+					writer.writeData(table.getData());
+				}else{
+					System.exit(0);
+				}
+
 			}
 		});
 	}
