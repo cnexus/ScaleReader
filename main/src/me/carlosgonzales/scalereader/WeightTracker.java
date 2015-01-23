@@ -37,9 +37,6 @@ public class WeightTracker {
 		LinkedList<String> entry = new LinkedList<String>();
 		String[] timeParts = time.trim().split(" ");
 
-		if(inRange(Double.valueOf(weight)))
-			cartonNum++;
-
 		String carton = inRange(Double.valueOf(weight)) ? String.valueOf(++cartonNum) : " -X-";
 
 		entry.add(carton);
