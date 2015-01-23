@@ -5,9 +5,10 @@ import java.io.*;
 /**
  * Created by Carlos on 1/23/2015.
  */
-public class AsyncSerialReader implements Runnable{
+public class AsyncSerialReader extends Thread{
 	private InputStream in;
 	private Processor processor;
+	private boolean forceStop = false;
 
 	public AsyncSerialReader(Processor p, InputStream in){
 		processor = p;
@@ -15,15 +16,17 @@ public class AsyncSerialReader implements Runnable{
 	}
 
 	public void run (){
+		BufferedReader reader = null;
+
 		try{
 			String curr = "";
 			String last = "";
 
-			int block = 2500;
+			int block = 3000;
 
 
-			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-			while((curr = reader.readLine()) != null) {
+			reader = new BufferedReader(new InputStreamReader(in));
+			while((curr = reader.readLine()) != null && !forceStop) {
 				if (curr.startsWith(ComParams.START_REC)) { // only enter if in standstill
 					// block for set delay, check if before and after reads are equal
 					String first = curr;
@@ -38,10 +41,19 @@ public class AsyncSerialReader implements Runnable{
 
 				}
 			}
+		}catch ( IOException e ){
+		}finally{
+			if(reader != null)
+				try {
+					reader.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 		}
-		catch ( IOException e ){
-			e.printStackTrace();
-		}
+	}
+
+	public void forceStop(){
+		forceStop = true;
 	}
 
 	private static boolean hasPassed(long start, long offset){
