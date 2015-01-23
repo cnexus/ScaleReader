@@ -22,8 +22,7 @@ public class AsyncSerialReader extends Thread{
 			String curr = "";
 			String last = "";
 
-			int block = 3000;
-
+			int block = 800;
 
 			reader = new BufferedReader(new InputStreamReader(in));
 			while((curr = reader.readLine()) != null && !forceStop) {
@@ -62,7 +61,8 @@ public class AsyncSerialReader extends Thread{
 
 	private void junkRead(BufferedReader reader, long duration) throws IOException{
 		long start = System.currentTimeMillis();
-		while(start + duration < System.currentTimeMillis())
+		while(start + duration > System.currentTimeMillis()) {
 			reader.readLine();
+		}
 	}
 }
