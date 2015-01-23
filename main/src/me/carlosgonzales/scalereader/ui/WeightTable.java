@@ -6,6 +6,7 @@ import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 
 /**
@@ -30,11 +31,7 @@ public class WeightTable extends JTable {
 	}
 
 	public LinkedList<String> getHeaders(){
-		LinkedList<String> l =  new LinkedList();
-		for(int i = 0; i < l.size(); i++)
-			l.add(model.headers[i]);
-
-		return l;
+		return new LinkedList<String>(Arrays.asList(model.headers));
 	}
 
 	public void add(String weight, String timestamp) {
