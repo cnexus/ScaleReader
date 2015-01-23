@@ -27,16 +27,13 @@ public class AsyncSerialReader implements Runnable{
 				if (curr.startsWith(ComParams.START_REC)) { // only enter if in standstill
 					// block for set delay, check if before and after reads are equal
 					String first = curr;
-
 					junkRead(reader, block);
-
 					String second = reader.readLine();
 
-
-					if(first != null && first.equals(second)) {
-						// finally process if we're still receiving the same data
-
+					if(first.equals(second) && !last.equals(first)) {
+						// finally process if we're still receiving the same data, and it's not duplicate
 						processor.processData(curr);
+						last = curr;
 					}
 
 				}
