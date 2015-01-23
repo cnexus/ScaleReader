@@ -9,7 +9,7 @@ import java.util.Enumeration;
  * Created by Carlos on 1/23/2015.
  */
 
-public class SerialReceiver implements SerialPortEventListener, Processor{
+public class ScaleComDevice implements SerialPortEventListener, Processor{
 	/**
 	 * Serial input structure
 	 *
@@ -29,12 +29,12 @@ public class SerialReceiver implements SerialPortEventListener, Processor{
 	 */
 
 	private static final String COM_NAME = "COM6";
-	private static SerialReceiver sInstance;
+	private static ScaleComDevice sInstance;
 	private Processor parent;
 	private AsyncSerialReader reader;
 
 
-	private SerialReceiver(Processor parent){
+	private ScaleComDevice(Processor parent){
 		this.parent = parent;
 
 		Enumeration<CommPortIdentifier> portEnum = CommPortIdentifier.getPortIdentifiers();
@@ -78,7 +78,7 @@ public class SerialReceiver implements SerialPortEventListener, Processor{
 	}
 
 	public static void main(String[] args){
-		SerialReceiver rec = new SerialReceiver(null);
+		ScaleComDevice rec = new ScaleComDevice(null);
 		rec.start();
 	}
 
@@ -95,9 +95,9 @@ public class SerialReceiver implements SerialPortEventListener, Processor{
 		}
 	}
 
-	public static SerialReceiver getInstance(Processor p){
+	public static ScaleComDevice getInstance(Processor p){
 		if(sInstance == null)
-			sInstance = new SerialReceiver(p);
+			sInstance = new ScaleComDevice(p);
 
 		return sInstance;
 	}
