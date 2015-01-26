@@ -1,4 +1,4 @@
-package me.carlosgonzales.scalereader;
+package me.carlosgonzales.scalereader.handlers;
 
 import java.util.LinkedList;
 

@@ -1,7 +1,7 @@
 package me.carlosgonzales.scalereader.ui;
 
-import me.carlosgonzales.scalereader.receiver.DataWriter;
-import me.carlosgonzales.scalereader.receiver.Processor;
+import me.carlosgonzales.scalereader.handlers.DataWriter;
+import me.carlosgonzales.scalereader.handlers.Processor;
 import me.carlosgonzales.scalereader.receiver.ScaleComDevice;
 
 import javax.swing.*;

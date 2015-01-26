@@ -1,6 +1,7 @@
 package me.carlosgonzales.scalereader.receiver;
 
 import gnu.io.*;
+import me.carlosgonzales.scalereader.handlers.Processor;
 
 import java.io.IOException;
 import java.util.Enumeration;
@@ -9,7 +10,7 @@ import java.util.Enumeration;
  * Created by Carlos on 1/23/2015.
  */
 
-public class ScaleComDevice implements SerialPortEventListener, Processor{
+public class ScaleComDevice implements SerialPortEventListener, Processor {
 	/**
 	 * Serial input structure
 	 *

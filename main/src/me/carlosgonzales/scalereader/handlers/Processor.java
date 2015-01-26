@@ -1,4 +1,4 @@
-package me.carlosgonzales.scalereader.receiver;
+package me.carlosgonzales.scalereader.handlers;
 
 /**
  * Created by Carlos on 1/23/2015.

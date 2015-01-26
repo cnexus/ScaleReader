@@ -1,6 +1,6 @@
 package me.carlosgonzales.scalereader.ui;
 
-import me.carlosgonzales.scalereader.WeightTracker;
+import me.carlosgonzales.scalereader.handlers.WeightTracker;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;

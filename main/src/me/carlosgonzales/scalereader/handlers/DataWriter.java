@@ -1,4 +1,4 @@
-package me.carlosgonzales.scalereader.receiver;
+package me.carlosgonzales.scalereader.handlers;
 
 import java.io.*;
 import java.util.ArrayList;

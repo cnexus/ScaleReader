@@ -1,5 +1,7 @@
 package me.carlosgonzales.scalereader.receiver;
 
+import me.carlosgonzales.scalereader.handlers.Processor;
+
 import java.io.*;
 
 /**
