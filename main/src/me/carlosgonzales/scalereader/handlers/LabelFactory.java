@@ -72,8 +72,8 @@ public class LabelFactory {
 		return imageFile;
 	}
 
-	public static void main(String[] args) throws IOException {
-		File f = LabelFactory.createLabel("Carton: 5", "Weight: 25.78 kg",  "Status: PASS", "2013-05-12 18:09:45");
-		java.awt.Desktop.getDesktop().open(f);
-	}
+//	public static void main(String[] args) throws IOException {
+//		File f = LabelFactory.createLabel("Carton: 5", "Weight: 25.78 kg",  "Status: PASS", "2013-05-12 18:09:45");
+//		java.awt.Desktop.getDesktop().open(f);
+//	}
 }
