@@ -2,7 +2,10 @@ package me.carlosgonzales.scalereader.receiver;
 
 import me.carlosgonzales.scalereader.handlers.Processor;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 /**
  * Created by Carlos on 1/23/2015.

@@ -119,5 +119,9 @@ public class ScaleReaderGUI extends JFrame implements Processor{
 
 		table.add(data, timestamp);
 		dataSet.put(Double.valueOf(data), timestamp);
+
+		//Create unique label
+
+
 	}
 }
