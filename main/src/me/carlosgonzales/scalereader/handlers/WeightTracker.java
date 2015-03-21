@@ -27,7 +27,7 @@ public class WeightTracker {
 		return cartonNum;
 	}
 
-	private boolean inRange(double weight){
+	public boolean inRange(double weight){
 		return weight >= low && weight <= high;
 	}
 

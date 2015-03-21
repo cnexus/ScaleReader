@@ -231,15 +231,14 @@ public class ScaleReaderGUI extends JFrame implements Processor, ActionListener{
 		dataSet.put(weight, timestamp);
 
 		//Create unique label
-		File file = table.getLabelFile();
-
-		if(file != null) { //print label if the data is not null
-			printFile(file);
-			file.deleteOnExit();
-		}
+		if(table.isInRange(weight))
+			printFile(table.getLabelFile());
 	}
 
 	public void printFile(final File f){
+		if(f == null)
+			return;
+
 		PrintService service = PrintServiceLookup.lookupDefaultPrintService();
 		DocPrintJob job = service.createPrintJob();
 		DocFlavor flavor = DocFlavor.SERVICE_FORMATTED.PRINTABLE;

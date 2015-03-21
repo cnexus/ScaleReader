@@ -34,6 +34,10 @@ public class WeightTable extends JTable {
 			getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
 	}
 
+	public boolean isInRange(double weight){
+		return tracker.inRange(weight);
+	}
+
 	public LinkedList<String> getHeaders(){
 		return new LinkedList<String>(Arrays.asList(model.headers));
 	}
