@@ -2,6 +2,7 @@ package me.carlosgonzales.scalereader.receiver;
 
 import gnu.io.*;
 import me.carlosgonzales.scalereader.handlers.Processor;
+import me.carlosgonzales.scalereader.handlers.Test;
 
 import java.io.IOException;
 import java.util.Enumeration;
@@ -29,16 +30,14 @@ public class ScaleComDevice implements SerialPortEventListener, Processor {
 	 *
 	 */
 
-	private static final String COM_NAME = "COM6";
 	private static ScaleComDevice sInstance;
 	private Processor parent;
 	private AsyncSerialReader reader;
-	private static boolean TESTING = true;
+	private static boolean TESTING = false;
 
 
 	private ScaleComDevice(Processor parent){
-
-		if(TESTING) {
+		if(Test.DEBUG) {
 			reader = new AsyncSerialReader(this, null);
 			return;
 		}
@@ -50,8 +49,10 @@ public class ScaleComDevice implements SerialPortEventListener, Processor {
 
 		while (portEnum.hasMoreElements()){
 			CommPortIdentifier portIdentifier = portEnum.nextElement();
-			if(COM_NAME.equals(portIdentifier.getName()))
+			//if(ComParams.COM_NAME.equals(portIdentifier.getName()))
+			if(portIdentifier.getPortType() == CommPortIdentifier.PORT_SERIAL) {
 				port = portIdentifier;
+			}
 		}
 
 		if(port != null){
@@ -92,18 +93,15 @@ public class ScaleComDevice implements SerialPortEventListener, Processor {
 
 	public void processData(String data) {
 		// We know the structure, so throw out everything but the data
-		int trash = 7;
-		int dataLen = 7;
-		int un = 2;
 
-		String data2 = data.substring(trash, trash+dataLen).trim();
-		String units = data.substring(trash+dataLen, trash+dataLen+un).trim();
+		String data2 = data.substring(ComParams.TRASH_LEN, ComParams.TRASH_LEN+ComParams.DATA_LEN).trim();
+		String units = data.substring(ComParams.TRASH_LEN + ComParams.DATA_LEN,
+				ComParams.TRASH_LEN + ComParams.DATA_LEN + ComParams.UNITS_LEN).trim();
 
-		data = data.substring(0, dataLen);
+		data = data.substring(0, ComParams.DATA_LEN);
 		double weight = Double.valueOf(data2);
 		if(weight != 0) {
-			System.out.println("data = [" + weight + "]");
-			System.out.println("Parent = " + parent);
+			System.out.println("data = [" + weight + " | " + units +"]");
 			parent.processData(data+units);
 		}
 	}
