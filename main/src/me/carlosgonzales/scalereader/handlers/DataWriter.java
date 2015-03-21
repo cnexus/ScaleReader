@@ -10,7 +10,10 @@ import java.util.LinkedList;
 public class DataWriter {
 	private File file;
 	public DataWriter(File file){
-		this.file = file;
+		if(!file.getPath().endsWith(".txt")){
+			this.file = new File(file.getAbsolutePath() + ".txt");
+		}else
+			this.file = file;
 	}
 
 	public void writeData(ArrayList<LinkedList<String>> values){
