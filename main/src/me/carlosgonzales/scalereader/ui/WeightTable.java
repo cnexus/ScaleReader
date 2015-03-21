@@ -48,6 +48,9 @@ public class WeightTable extends JTable {
 		int last = tracker.getCartonNum();
 		LinkedList<String> data = model.getValueAt(last - 1);
 
+		if(WeightTracker.FAIL.equals(data.getLast()))
+			return null;
+
 		String[] fields = new String[4];
 		fields[0] = "Carton: " + last;
 		fields[1] = "Weight: " + data.get(1) + data.get(2);
