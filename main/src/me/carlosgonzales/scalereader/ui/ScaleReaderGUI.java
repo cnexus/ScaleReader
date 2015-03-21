@@ -144,6 +144,11 @@ public class ScaleReaderGUI extends JFrame implements Processor, ActionListener{
 
 		if(result == JFileChooser.APPROVE_OPTION) {
 			File f = chooser.getSelectedFile();
+			String filePath = f.getAbsolutePath();
+			if(!filePath.endsWith(".txt")) {
+				f = new File(filePath + ".txt");
+			}
+
 			DataWriter writer = new DataWriter(f);
 
 			ArrayList<LinkedList<String>> data = table.getData();
