@@ -1,16 +1,40 @@
 package me.carlosgonzales.scalereader.handlers;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 
 /**
  * Created by Carlos on 1/23/2015.
  */
 public class DataWriter {
+	private final static String DEFAULT = File.pathSeparator + "ScaleReadings_" + getFormattedDate() + ".txt";
+
 	private File file;
 	public DataWriter(File file) {
+
+		if(file.isDirectory()){
+			file = new File(file.getAbsolutePath() + DEFAULT);
+		}else {
+			String filePath = file.getAbsolutePath();
+			if (!filePath.endsWith(".txt")) {
+				file = new File(filePath + ".txt");
+			}
+		}
+
 		this.file = file;
+
+
+	}
+
+	private static String getFormattedDate(){
+		SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");//dd/MM/yyyy
+		Date now = new Date();
+		String strDate = sdfDate.format(now);
+
+		return strDate;
 	}
 
 	public void writeData(ArrayList<LinkedList<String>> values){
