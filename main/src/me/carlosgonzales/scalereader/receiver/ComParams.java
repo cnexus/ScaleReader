@@ -11,4 +11,7 @@ public final class ComParams {
 	public static final int DATA = SerialPort.DATABITS_7;
 	public static final int STOP = SerialPort.STOPBITS_1;
 	public static final int PARITY = SerialPort.PARITY_NONE;
+	public static final int DATA_LEN = 7;
+	public static final int UNITS_LEN = 2;
+	public static final int TRASH_LEN = 7;
 }
