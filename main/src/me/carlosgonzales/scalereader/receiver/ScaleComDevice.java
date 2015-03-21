@@ -86,11 +86,6 @@ public class ScaleComDevice implements SerialPortEventListener, Processor {
 		reader.forceStop();
 	}
 
-	public static void main(String[] args){
-		ScaleComDevice rec = new ScaleComDevice(null);
-		rec.start();
-	}
-
 	public void processData(String data) {
 		// We know the structure, so throw out everything but the data
 
