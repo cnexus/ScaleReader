@@ -1,6 +1,7 @@
 package me.carlosgonzales.scalereader.receiver;
 
 import me.carlosgonzales.scalereader.handlers.Processor;
+import me.carlosgonzales.scalereader.handlers.Test;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,8 +22,8 @@ public class AsyncSerialReader extends Thread{
 		this.in = in;
 	}
 
-	public void run (){
-		if(TESTING) {
+	public void run(){
+		if(Test.DEBUG) {
 			runTesting();
 			return;
 		}
@@ -52,12 +53,13 @@ public class AsyncSerialReader extends Thread{
 			}
 		}catch ( IOException e ){
 		}finally{
-			if(reader != null)
+			if(reader != null) {
 				try {
 					reader.close();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+			}
 		}
 	}
 
@@ -88,10 +90,6 @@ public class AsyncSerialReader extends Thread{
 
 	public void forceStop(){
 		forceStop = true;
-	}
-
-	private static boolean hasPassed(long start, long offset){
-		return System.currentTimeMillis() >= (start + offset);
 	}
 
 	private void junkRead(BufferedReader reader, long duration) throws IOException{
