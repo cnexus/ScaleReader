@@ -93,10 +93,8 @@ public class ScaleComDevice implements SerialPortEventListener, Processor {
 		String units = data.substring(ComParams.TRASH_LEN + ComParams.DATA_LEN,
 				ComParams.TRASH_LEN + ComParams.DATA_LEN + ComParams.UNITS_LEN).trim();
 		double weight = Double.valueOf(data2);
-		if(weight != 0) {
-			System.out.println("data = [" + weight + " | " + units +"]");
+		if(weight != 0)
 			parent.processData(weight+units);
-		}
 	}
 
 	public static ScaleComDevice getInstance(Processor p){
