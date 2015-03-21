@@ -41,14 +41,17 @@ public class WeightTracker {
 		LinkedList<String> entry = new LinkedList<String>();
 		String[] timeParts = time.trim().split(" ");
 
-		String carton = inRange(Double.valueOf(weight)) ? String.valueOf(++cartonNum) : " -X-";
+		double weightVal = WeightHandler.getWeight(weight);
+
+		String carton = inRange(weightVal) ? String.valueOf(++cartonNum) : " -X-";
 
 		entry.add(carton);
-		entry.add(weight);
+		entry.add(String.valueOf(weightVal));
+		entry.add(WeightHandler.getUnits(weight));
 		for(String s: timeParts)
 			entry.add(s);
 
-		entry.add(getStatus(weight));
+		entry.add(getStatus(String.valueOf(weightVal)));
 		return entry;
 	}
 }
