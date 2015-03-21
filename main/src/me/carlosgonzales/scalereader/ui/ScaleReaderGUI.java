@@ -118,19 +118,16 @@ public class ScaleReaderGUI extends JFrame implements Processor, ActionListener{
 		dialog.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				int res = JOptionPane.showConfirmDialog(dialog, "\nAre you sure you want to use these parameters?\n", "", JOptionPane.YES_NO_OPTION);
-				if(res == JOptionPane.OK_OPTION){
-					bounds = new String[num];
-					JTextField fields[];
+				bounds = new String[num];
+				JTextField fields[];
 
-					if(topButton.isSelected())
-						fields = topFields;
-					else//if(bottomButton.isSelected()){
-						fields = bottomFields;
+				if(topButton.isSelected())
+					fields = topFields;
+				else//if(bottomButton.isSelected()){
+					fields = bottomFields;
 
-					for(int i = 0; i < num; i++){
-						bounds[i] = fields[i].getText().trim();
-					}
+				for(int i = 0; i < num; i++) {
+					bounds[i] = fields[i].getText().trim();
 				}
 			}
 		});
