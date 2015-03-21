@@ -9,12 +9,14 @@ import javax.swing.table.DefaultTableCellRenderer;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.LinkedList;
 
 /**
  * Created by Carlos on 1/23/2015.
  */
 public class WeightTable extends JTable {
+	private HashSet<File> labelsCreated = new HashSet<File>();
 	private WeightTableModel model;
 	private WeightTracker tracker;
 
@@ -57,7 +59,13 @@ public class WeightTable extends JTable {
 		fields[2] = data.get(3).trim() + " " + data.get(4);
 		fields[3] = "Status: " + data.getLast();
 
-		return LabelFactory.createLabel(fields);
+		File f = LabelFactory.createLabel(fields);
+
+		if(labelsCreated.contains(f))
+			return null;
+
+		labelsCreated.add(f);
+		return f;
 	}
 
 	public ArrayList<LinkedList<String>> getData(){
