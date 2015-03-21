@@ -10,22 +10,20 @@ import java.util.LinkedList;
  * Created by Carlos on 1/23/2015.
  */
 public class DataWriter {
-	private final static String DEFAULT = File.pathSeparator + "ScaleReadings_" + getFormattedDate() + ".txt";
+	private final static String DEFAULT = "ScaleReadings_" + getFormattedDate() + ".txt";
 
 	private File file;
 	public DataWriter(File file) {
 
 		if(file.isDirectory()){
-			file = new File(file.getAbsolutePath() + DEFAULT);
+			this.file = new File(file, DEFAULT);
 		}else {
-			file = new File(file.getParentFile().getAbsolutePath() + DEFAULT);
+			this.file = new File(file.getAbsolutePath().substring(0,file.getAbsolutePath().lastIndexOf(File.pathSeparator)), DEFAULT);
 		}
-
-		this.file = file;
 	}
 
 	private static String getFormattedDate(){
-		SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");//dd/MM/yyyy
+		SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
 		Date now = new Date();
 		String strDate = sdfDate.format(now);
 
@@ -36,6 +34,7 @@ public class DataWriter {
 		PrintWriter writer = null;
 
 		try {
+			System.out.println("File is: " + file);
 			writer = new PrintWriter(new BufferedWriter(new FileWriter(file, file.exists())));
 			LinkedList<String> headers = values.get(0);
 			if(file.exists())
