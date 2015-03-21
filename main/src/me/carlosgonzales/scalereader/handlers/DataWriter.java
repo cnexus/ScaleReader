@@ -18,15 +18,10 @@ public class DataWriter {
 		if(file.isDirectory()){
 			file = new File(file.getAbsolutePath() + DEFAULT);
 		}else {
-			String filePath = file.getAbsolutePath();
-			if (!filePath.endsWith(".txt")) {
-				file = new File(filePath + ".txt");
-			}
+			file = new File(file.getParentFile().getAbsolutePath() + DEFAULT);
 		}
 
 		this.file = file;
-
-
 	}
 
 	private static String getFormattedDate(){
@@ -43,7 +38,7 @@ public class DataWriter {
 		try {
 			writer = new PrintWriter(new BufferedWriter(new FileWriter(file, file.exists())));
 			LinkedList<String> headers = values.get(0);
-			if(!file.exists())
+			if(file.exists())
 				writeLine(writer, headers);
 
 			for(int i = 1; i < values.size(); i++)
