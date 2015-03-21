@@ -77,7 +77,7 @@ public class WeightTable extends JTable {
 	}
 
 	private class WeightTableModel extends AbstractTableModel{
-		private String[] headers = {"Carton #", "Weight", "Units", "Date", "Time", "Status"};
+		private String[] headers = {"Carton #", "Weight", "Units", "Date", "Time", "Status", "Lower", "Upper"};
 		private ArrayList<LinkedList<String>> data = new ArrayList<LinkedList<String>>();
 		public String getColumnName(int col) {
 			return headers[col].toString();

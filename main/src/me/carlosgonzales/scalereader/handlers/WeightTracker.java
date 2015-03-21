@@ -55,6 +55,8 @@ public class WeightTracker {
 			entry.add(s);
 
 		entry.add(getStatus(String.valueOf(weightVal)));
+		entry.add(String.valueOf(low));
+		entry.add(String.valueOf(high));
 		return entry;
 	}
 }
