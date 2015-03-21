@@ -6,6 +6,9 @@ import java.util.LinkedList;
  * Created by Carlos on 1/23/2015.
  */
 public class WeightTracker {
+	public static final String PASS = "PASS";
+	public static final String FAIL = "FAIL";
+
 	private int cartonNum;
 	private double low;
 	private double high;
@@ -29,10 +32,10 @@ public class WeightTracker {
 	}
 
 	private String getStatus(String weight){
-		String ret = "PASS";
+		String ret = PASS;
 
 		if(!inRange(Double.valueOf(weight)))
-			ret = "FAIL";
+			ret = FAIL;
 
 		return ret;
 	}
