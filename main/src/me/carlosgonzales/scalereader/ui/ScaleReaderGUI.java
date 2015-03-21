@@ -235,7 +235,7 @@ public class ScaleReaderGUI extends JFrame implements Processor, ActionListener{
 
 		if(file != null) { //print label if the data is not null
 			printFile(file);
-			file.delete();
+			file.deleteOnExit();
 		}
 	}
 
