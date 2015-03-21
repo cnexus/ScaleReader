@@ -37,9 +37,10 @@ public class ScaleReaderGUI extends JFrame implements Processor, ActionListener{
 		setSize(SIZE.width, SIZE.height);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
 
-		initComponents();
 		promptForBounds();
+		initComponents();
 	}
 
 	public void startReceiving(){
@@ -117,7 +118,7 @@ public class ScaleReaderGUI extends JFrame implements Processor, ActionListener{
 		dialog.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				int res = JOptionPane.showConfirmDialog(dialog, "Are you sure you want to use these parameters?", "", JOptionPane.QUESTION_MESSAGE);
+				int res = JOptionPane.showConfirmDialog(dialog, "\nAre you sure you want to use these parameters?\n", "", JOptionPane.YES_NO_OPTION);
 				if(res == JOptionPane.OK_OPTION){
 					bounds = new String[num];
 					JTextField fields[];
@@ -134,8 +135,8 @@ public class ScaleReaderGUI extends JFrame implements Processor, ActionListener{
 			}
 		});
 
+		dialog.setLocationRelativeTo(null);
 		dialog.setVisible(true);
-		System.exit(0);
 	}
 
 	private void showSaveOperation(boolean isShutdown){
@@ -215,6 +216,9 @@ public class ScaleReaderGUI extends JFrame implements Processor, ActionListener{
 	}
 
 	public void processData(String data) {
+
+		System.out.println("Data is: [" + data + "]");
+
 		String units = WeightHandler.getUnits(data);
 		double weight = WeightHandler.getWeight(data);
 
