@@ -46,12 +46,12 @@ public class WeightTable extends JTable {
 
 	public File getLabelFile(){
 		int last = tracker.getCartonNum();
-		LinkedList<String> data = model.getValueAt(last);
+		LinkedList<String> data = model.getValueAt(last - 1);
 
 		String[] fields = new String[4];
 		fields[0] = "Carton: " + last;
-		fields[1] = "Weight: " + data.get(1);
-		fields[2] = data.get(2).trim() + " " + data.get(3);
+		fields[1] = "Weight: " + data.get(1) + data.get(2);
+		fields[2] = data.get(3).trim() + " " + data.get(4);
 		fields[3] = "Status: " + data.getLast();
 
 		return LabelFactory.createLabel(fields);
@@ -62,7 +62,7 @@ public class WeightTable extends JTable {
 	}
 
 	private class WeightTableModel extends AbstractTableModel{
-		private String[] headers = {"Carton #", "Weight", "Date", "Time", "Status"};
+		private String[] headers = {"Carton #", "Weight", "Units", "Date", "Time", "Status"};
 		private ArrayList<LinkedList<String>> data = new ArrayList<LinkedList<String>>();
 		public String getColumnName(int col) {
 			return headers[col].toString();
