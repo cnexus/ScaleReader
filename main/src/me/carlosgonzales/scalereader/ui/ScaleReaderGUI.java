@@ -21,7 +21,7 @@ import java.util.*;
  */
 public class ScaleReaderGUI extends JFrame implements Processor, ActionListener{
 	private static final String NAME = "ScaleReader";
-	private static final Rectangle SIZE = new Rectangle(800, 600);
+	private static final Rectangle SIZE = new Rectangle(900, 650);
 	private ScaleComDevice receiver = ScaleComDevice.getInstance(this);
 	private WeightTable table;
 	private Map<Double, String> dataSet = new HashMap<Double, String>();
@@ -123,11 +123,19 @@ public class ScaleReaderGUI extends JFrame implements Processor, ActionListener{
 
 				if(topButton.isSelected())
 					fields = topFields;
-				else//if(bottomButton.isSelected()){
+				else
 					fields = bottomFields;
 
 				for(int i = 0; i < num; i++) {
 					bounds[i] = fields[i].getText().trim();
+				}
+
+				if(fields == bottomFields){
+					double mid = Double.valueOf(fields[0].getText().trim());
+					double offset = Double.valueOf(fields[1].getText().trim());
+
+					bounds[0] = String.valueOf(mid - offset);
+					bounds[1] = String.valueOf(mid + offset);
 				}
 			}
 		});
