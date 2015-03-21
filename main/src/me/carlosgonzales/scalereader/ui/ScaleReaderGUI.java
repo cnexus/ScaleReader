@@ -221,10 +221,6 @@ public class ScaleReaderGUI extends JFrame implements Processor, ActionListener{
 	}
 
 	public void processData(String data) {
-
-		System.out.println("Data is: [" + data + "]");
-
-		String units = WeightHandler.getUnits(data);
 		double weight = WeightHandler.getWeight(data);
 
 		if(dataSet.containsKey(weight))
