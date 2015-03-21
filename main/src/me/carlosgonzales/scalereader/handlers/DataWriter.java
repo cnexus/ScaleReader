@@ -18,7 +18,7 @@ public class DataWriter {
 		if(file.isDirectory()){
 			this.file = new File(file, DEFAULT);
 		}else {
-			this.file = new File(file.getAbsolutePath().substring(0,file.getAbsolutePath().lastIndexOf(File.pathSeparator)), DEFAULT);
+			this.file = new File(file.getAbsolutePath().substring(0,file.getAbsolutePath().lastIndexOf("\\") + 1), DEFAULT);
 		}
 	}
 
@@ -33,11 +33,12 @@ public class DataWriter {
 	public void writeData(ArrayList<LinkedList<String>> values){
 		PrintWriter writer = null;
 
+		boolean writeHeaders = !file.exists();
+
 		try {
-			System.out.println("File is: " + file);
 			writer = new PrintWriter(new BufferedWriter(new FileWriter(file, file.exists())));
 			LinkedList<String> headers = values.get(0);
-			if(file.exists())
+			if(writeHeaders)
 				writeLine(writer, headers);
 
 			for(int i = 1; i < values.size(); i++)
