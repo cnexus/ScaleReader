@@ -20,6 +20,10 @@ public class WeightTracker {
 		this.high = high;
 	}
 
+	public int getCartonNum(){
+		return cartonNum;
+	}
+
 	private boolean inRange(double weight){
 		return weight >= low && weight <= high;
 	}

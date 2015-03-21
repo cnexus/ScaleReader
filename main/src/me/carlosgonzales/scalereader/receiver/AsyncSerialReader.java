@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
  * Created by Carlos on 1/23/2015.
  */
 public class AsyncSerialReader extends Thread{
+	private static final boolean TESTING = true;
 	private InputStream in;
 	private Processor processor;
 	private boolean forceStop = false;
@@ -21,6 +22,11 @@ public class AsyncSerialReader extends Thread{
 	}
 
 	public void run (){
+		if(TESTING) {
+			runTesting();
+			return;
+		}
+
 		BufferedReader reader = null;
 
 		try{
@@ -52,6 +58,31 @@ public class AsyncSerialReader extends Thread{
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+		}
+	}
+
+	private void runTesting(){
+		String value1 = "ST34567   0.11kg";
+		String value2 = "ST34567   0.34kg";
+		String value3 = "ST34567   0.93kg";
+
+		int count = 1;
+
+		while(true){
+			if(count == 1)
+				processor.processData(value1);
+			else if(count == 2)
+				processor.processData(value2);
+			else if(count == 3);
+				processor.processData(value3);
+
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				//e.printStackTrace();
+			}
+
+			count = count >= 3 ? 1: count++;
 		}
 	}
 

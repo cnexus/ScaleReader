@@ -1,10 +1,12 @@
 package me.carlosgonzales.scalereader.ui;
 
+import me.carlosgonzales.scalereader.handlers.LabelFactory;
 import me.carlosgonzales.scalereader.handlers.WeightTracker;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -18,7 +20,7 @@ public class WeightTable extends JTable {
 
 	public WeightTable(String low, String high){
 		model = new WeightTableModel();
-		tracker = new WeightTracker(Double.valueOf(low), Double.valueOf(high));
+		tracker = new WeightTracker(Double.valueOf(low.trim()), Double.valueOf(high.trim()));
 
 		this.setModel(model);
 		this.setRowHeight(40);
@@ -34,8 +36,25 @@ public class WeightTable extends JTable {
 		return new LinkedList<String>(Arrays.asList(model.headers));
 	}
 
+	public WeightTracker getTracker(){
+		return tracker;
+	}
+
 	public void add(String weight, String timestamp) {
 		model.add(tracker.getEntryFor(weight, timestamp));
+	}
+
+	public File getLabelFile(){
+		int last = tracker.getCartonNum();
+		LinkedList<String> data = model.getValueAt(last);
+
+		String[] fields = new String[4];
+		fields[0] = "Carton: " + last;
+		fields[1] = "Weight: " + data.get(1);
+		fields[2] = data.get(2).trim() + " " + data.get(3);
+		fields[3] = "Status: " + data.getLast();
+
+		return LabelFactory.createLabel(fields);
 	}
 
 	public ArrayList<LinkedList<String>> getData(){
@@ -54,6 +73,10 @@ public class WeightTable extends JTable {
 
 		public int getColumnCount() {
 			return headers.length;
+		}
+
+		public LinkedList<String> getValueAt(int row){
+			return data.get(row);
 		}
 
 		public Object getValueAt(int row, int col) {

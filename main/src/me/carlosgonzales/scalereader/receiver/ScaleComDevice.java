@@ -33,9 +33,16 @@ public class ScaleComDevice implements SerialPortEventListener, Processor {
 	private static ScaleComDevice sInstance;
 	private Processor parent;
 	private AsyncSerialReader reader;
+	private static boolean TESTING = true;
 
 
 	private ScaleComDevice(Processor parent){
+
+		if(TESTING) {
+			reader = new AsyncSerialReader(this, null);
+			return;
+		}
+
 		this.parent = parent;
 
 		Enumeration<CommPortIdentifier> portEnum = CommPortIdentifier.getPortIdentifiers();
@@ -87,12 +94,17 @@ public class ScaleComDevice implements SerialPortEventListener, Processor {
 		// We know the structure, so throw out everything but the data
 		int trash = 7;
 		int dataLen = 7;
-		data = data.substring(trash, trash+dataLen).trim();
+		int un = 2;
 
-		double weight = Double.valueOf(data);
+		String data2 = data.substring(trash, trash+dataLen).trim();
+		String units = data.substring(trash+dataLen, trash+dataLen+un).trim();
+
+		data = data.substring(0, dataLen);
+		double weight = Double.valueOf(data2);
 		if(weight != 0) {
 			System.out.println("data = [" + weight + "]");
-			parent.processData(data);
+			System.out.println("Parent = " + parent);
+			parent.processData(data+units);
 		}
 	}
 

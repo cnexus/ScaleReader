@@ -5,7 +5,6 @@ package me.carlosgonzales.scalereader.handlers;
  */
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.datatransfer.StringSelection;
 import java.awt.font.TextAttribute;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -67,7 +66,7 @@ public class LabelFactory {
 			e.printStackTrace();
 		}
 
-		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(imageFile.getAbsolutePath()), null);
+//		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(imageFile.getAbsolutePath()), null);
 
 		return imageFile;
 	}
