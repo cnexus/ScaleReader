@@ -78,6 +78,10 @@ public class ScaleComDevice implements SerialPortEventListener, Processor {
 		}
 	}
 
+	public void setDoRead(boolean read){
+		reader.setDoRead(read);
+	}
+
 	public void start(){
 		reader.start();
 	}
@@ -88,12 +92,11 @@ public class ScaleComDevice implements SerialPortEventListener, Processor {
 
 	public void processData(String data) {
 		// We know the structure, so throw out everything but the data
-
 		String data2 = data.substring(ComParams.TRASH_LEN, ComParams.TRASH_LEN+ComParams.DATA_LEN).trim();
 		String units = data.substring(ComParams.TRASH_LEN + ComParams.DATA_LEN,
 				ComParams.TRASH_LEN + ComParams.DATA_LEN + ComParams.UNITS_LEN).trim();
 		double weight = Double.valueOf(data2);
-		if(weight != 0)
+		if(data.startsWith(ComParams.START_REC) && weight != 0)
 			parent.processData(weight+units);
 	}
 

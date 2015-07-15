@@ -137,6 +137,8 @@ public class ScaleReaderGUI extends JFrame implements Processor, ActionListener{
 					bounds[0] = String.valueOf(mid - offset);
 					bounds[1] = String.valueOf(mid + offset);
 				}
+
+				JOptionPane.showMessageDialog(null, "Using entered values for determining weight limits.");
 			}
 		});
 
@@ -183,6 +185,18 @@ public class ScaleReaderGUI extends JFrame implements Processor, ActionListener{
 				e.getAdjustable().setValue(e.getAdjustable().getMaximum());
 			}
 		});
+
+		InputMap inputMap = container.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+		ActionMap actionMap = container.getActionMap();
+
+		Action enterAction = new AbstractAction() {
+			public void actionPerformed(ActionEvent actionEvent){
+				receiver.setDoRead(true);
+			}
+		};
+
+		inputMap.put(KeyStroke.getKeyStroke("ENTER"), "enterAction");
+		actionMap.put("enterAction", enterAction);
 
 		add(container);
 	}

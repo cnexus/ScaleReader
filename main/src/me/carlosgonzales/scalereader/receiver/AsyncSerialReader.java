@@ -16,6 +16,7 @@ public class AsyncSerialReader extends Thread{
 	private InputStream in;
 	private Processor processor;
 	private boolean forceStop = false;
+	private boolean doRead = false;
 
 	public AsyncSerialReader(Processor p, InputStream in){
 		processor = p;
@@ -38,17 +39,19 @@ public class AsyncSerialReader extends Thread{
 
 			reader = new BufferedReader(new InputStreamReader(in));
 			while((curr = reader.readLine()) != null && !forceStop) {
-				if (curr.startsWith(ComParams.START_REC)) { // only enter if in standstill
+				if(doRead) {
 					// block for set delay, check if before and after reads are equal
 					String first = curr;
-					junkRead(reader, block);
+					//junkRead(reader, block);
 					String second = reader.readLine();
 
-					if(first.equals(second) && !last.equals(first)) {
+					if (first.equals(second) && !last.equals(first)) {
 						// finally process if we're still receiving the same data, and it's not duplicate
 						processor.processData(curr);
 						last = curr;
 					}
+
+					doRead = !doRead;
 				}
 			}
 		}catch ( IOException e ){
@@ -90,6 +93,9 @@ public class AsyncSerialReader extends Thread{
 
 	public void forceStop(){
 		forceStop = true;
+	}
+	public void setDoRead(boolean read){
+		doRead = read;
 	}
 
 	private void junkRead(BufferedReader reader, long duration) throws IOException{
