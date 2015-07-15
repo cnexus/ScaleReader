@@ -32,6 +32,7 @@ public class ScaleReaderGUI extends JFrame implements Processor, ActionListener{
 	private JTextField[] bottomFields;
 	private JRadioButton topButton;
 	private JRadioButton bottomButton;
+	private JCheckBoxMenuItem printBox;
 	private boolean doPrint = true;
 
 	private ScaleReaderGUI(String name){
@@ -48,6 +49,10 @@ public class ScaleReaderGUI extends JFrame implements Processor, ActionListener{
 
 	public void startReceiving(){
 		receiver.start();
+	}
+
+	public void setPrint(boolean print){
+		doPrint = print;
 	}
 
 	private void promptForBounds(){
@@ -208,13 +213,6 @@ public class ScaleReaderGUI extends JFrame implements Processor, ActionListener{
 		actionMap.put(action, enterAction);
 
 		add(container);
-
-		/** Add check box to menu **/
-		JMenuBar menu = this.getJMenuBar();
-		JMenu printMenu = new JMenu();
-		printMenu.add(new JCheckBoxMenuItem("Print label on <PASS>"));
-
-		menu.add(printMenu);
 	}
 
 	public ScaleReaderGUI(){
@@ -267,6 +265,7 @@ public class ScaleReaderGUI extends JFrame implements Processor, ActionListener{
 	}
 
 	public void printFile(final File f){
+
 		if(f == null || !doPrint)
 			return;
 
