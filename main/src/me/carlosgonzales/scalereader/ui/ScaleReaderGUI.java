@@ -140,7 +140,7 @@ public class ScaleReaderGUI extends JFrame implements Processor, ActionListener{
 					bounds[1] = String.valueOf(mid + offset);
 				}
 
-				JOptionPane.showMessageDialog(null, "Using entered values for determining weight limits.\nUse the \"" + NEXT_KEY + "\" key to weigh a new item.");
+				JOptionPane.showMessageDialog(null, "Using entered values for determining weight limits.\nUse the <" + NEXT_KEY + "> key to weigh a new item.");
 			}
 		});
 
