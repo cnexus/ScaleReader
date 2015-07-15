@@ -22,6 +22,8 @@ import java.util.*;
 public class ScaleReaderGUI extends JFrame implements Processor, ActionListener{
 	private static final String NAME = "ScaleReader";
 	private static final Rectangle SIZE = new Rectangle(900, 650);
+	private static final String NEXT_KEY = "N";
+
 	private ScaleComDevice receiver = ScaleComDevice.getInstance(this);
 	private WeightTable table;
 	private Map<Double, String> dataSet = new HashMap<Double, String>();
@@ -138,7 +140,7 @@ public class ScaleReaderGUI extends JFrame implements Processor, ActionListener{
 					bounds[1] = String.valueOf(mid + offset);
 				}
 
-				JOptionPane.showMessageDialog(null, "Using entered values for determining weight limits.");
+				JOptionPane.showMessageDialog(null, "Using entered values for determining weight limits.\nUse the \"" + NEXT_KEY + "\" key to weigh a new item.");
 			}
 		});
 
@@ -186,8 +188,10 @@ public class ScaleReaderGUI extends JFrame implements Processor, ActionListener{
 			}
 		});
 
-		InputMap inputMap = container.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-		ActionMap actionMap = container.getActionMap();
+		JComponent comp = this.getRootPane();
+
+		InputMap inputMap = comp.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+		ActionMap actionMap = comp.getActionMap();
 
 		Action enterAction = new AbstractAction() {
 			public void actionPerformed(ActionEvent actionEvent){
@@ -195,9 +199,9 @@ public class ScaleReaderGUI extends JFrame implements Processor, ActionListener{
 			}
 		};
 
-		String action = "enterAction";
+		String action = "readAction";
 
-		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), action);
+		inputMap.put(KeyStroke.getKeyStroke(NEXT_KEY), action);
 		actionMap.put(action, enterAction);
 
 		add(container);
