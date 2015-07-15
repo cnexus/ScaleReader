@@ -195,8 +195,10 @@ public class ScaleReaderGUI extends JFrame implements Processor, ActionListener{
 			}
 		};
 
-		inputMap.put(KeyStroke.getKeyStroke("ENTER"), "enterAction");
-		actionMap.put("enterAction", enterAction);
+		String action = "enterAction";
+
+		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), action);
+		actionMap.put(action, enterAction);
 
 		add(container);
 	}
