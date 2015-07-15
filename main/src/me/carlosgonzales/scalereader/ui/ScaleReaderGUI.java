@@ -32,6 +32,7 @@ public class ScaleReaderGUI extends JFrame implements Processor, ActionListener{
 	private JTextField[] bottomFields;
 	private JRadioButton topButton;
 	private JRadioButton bottomButton;
+	private boolean doPrint = true;
 
 	private ScaleReaderGUI(String name){
 		super(name);
@@ -140,11 +141,13 @@ public class ScaleReaderGUI extends JFrame implements Processor, ActionListener{
 					bounds[1] = String.valueOf(mid + offset);
 				}
 
-				JOptionPane.showMessageDialog(null, "Using entered values for determining weight limits.\nUse the <" + NEXT_KEY + "> key to weigh a new item.");
+				JOptionPane.showMessageDialog(null, "Using [" + bounds[0] + "] and [" + bounds[1] + "] as the bounds.\nOn the following screen, use the <" + NEXT_KEY + "> key to weigh a new item.");
 			}
 		});
 
 		dialog.setLocationRelativeTo(null);
+
+		JOptionPane.showMessageDialog(null, "On the following screen, enter the bounds you would like to use for weighing and then close the window when you are finished to continue.");
 		dialog.setVisible(true);
 	}
 
@@ -205,6 +208,13 @@ public class ScaleReaderGUI extends JFrame implements Processor, ActionListener{
 		actionMap.put(action, enterAction);
 
 		add(container);
+
+		/** Add check box to menu **/
+		JMenuBar menu = this.getJMenuBar();
+		JMenu printMenu = new JMenu();
+		printMenu.add(new JCheckBoxMenuItem("Print label on <PASS>"));
+
+		menu.add(printMenu);
 	}
 
 	public ScaleReaderGUI(){
@@ -257,7 +267,7 @@ public class ScaleReaderGUI extends JFrame implements Processor, ActionListener{
 	}
 
 	public void printFile(final File f){
-		if(f == null)
+		if(f == null || !doPrint)
 			return;
 
 		PrintService service = PrintServiceLookup.lookupDefaultPrintService();
